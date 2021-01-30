@@ -72,6 +72,12 @@ public class PlayerController : MonoBehaviour
 		if(CurrentPlayerState == PlayerState.PLAYING)
 			MoveInputValue = context.ReadValue<Vector2>();		
 	}
+
+	public void Jump(InputAction.CallbackContext context)
+	{
+		if (CurrentPlayerState == PlayerState.PLAYING)
+			jumpPressed = true;
+	}
 	
 	public void Look(InputAction.CallbackContext context)
 	{
