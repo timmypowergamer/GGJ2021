@@ -6,43 +6,45 @@ using UnityEngine.SceneManagement;
 public class TitleScript : MonoBehaviour
 {
 	public string newGameScene;
-	public Canvas mainCanvasObject;
-	public Canvas secondCanvasObject;	
-	public Canvas LobbyCanvasObject;		
+	public GameObject TitleCanvasGameObject;
+	public GameObject SecondCanvasGameObject;	
+	public GameObject LobbyCanvasGameObject;
+	public GameObject Player1Model;
+	public float xAngle, yAngle, zAngle;
 
 	// Start is called before the first frame update
     void Start()
     {
-        mainCanvasObject.enabled = true;
-		secondCanvasObject.enabled = false;
-		LobbyCanvasObject.enabled = false;		
+        TitleCanvasGameObject.SetActive(true);
+		SecondCanvasGameObject.SetActive(false);
+		LobbyCanvasGameObject.SetActive(false);		
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Player1Model.transform.Rotate(xAngle,yAngle,zAngle, Space.Self);
     }
 	    
 	public void NewGame()
     {
-        mainCanvasObject.enabled = false;
-		secondCanvasObject.enabled = true;
-		LobbyCanvasObject.enabled = false;		
+        TitleCanvasGameObject.SetActive(false);
+		SecondCanvasGameObject.SetActive(true);
+		LobbyCanvasGameObject.SetActive(false);	
     }
 
 	public void HostGame()
     {
-        mainCanvasObject.enabled = false;
-		secondCanvasObject.enabled = false;
-		LobbyCanvasObject.enabled = true;
+        TitleCanvasGameObject.SetActive(false);
+		SecondCanvasGameObject.SetActive(false);
+		LobbyCanvasGameObject.SetActive(true);	
     }	
 	
     public void GoBack()
     {
-        mainCanvasObject.enabled = true;
-		secondCanvasObject.enabled = false;
-		LobbyCanvasObject.enabled = false;		
+        TitleCanvasGameObject.SetActive(true);
+		SecondCanvasGameObject.SetActive(false);
+		LobbyCanvasGameObject.SetActive(false);		
     }
 	
     public void QuitGame()
