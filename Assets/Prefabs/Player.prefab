@@ -677,6 +677,9 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 1
     Name: Death
+  - Type: 1
+    SynchronizeType: 0
+    Name: Strafe
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
@@ -693,6 +696,7 @@ GameObject:
   - component: {fileID: 1810925126643303465}
   - component: {fileID: 1810925126643303464}
   - component: {fileID: 1810925126643303467}
+  - component: {fileID: 430225587305180267}
   m_Layer: 6
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -765,6 +769,38 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810925126643303466}
   m_Enabled: 1
+--- !u!114 &430225587305180267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810925126643303466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &2174915506624603291
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,6 +2102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5226540747911388598}
   - component: {fileID: 8136738437034398867}
+  - component: {fileID: 962658357784426866}
   m_Layer: 0
   m_Name: PostProcess
   m_TagString: Untagged
@@ -2104,6 +2141,20 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: c9e9681d42519664d937da13eb2136c0, type: 2}
+--- !u!114 &962658357784426866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7768160006015920906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b900b6d691ae49f8a12753b63b449e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sun: {fileID: 0}
+  depthOfFieldTarget: {fileID: 0}
 --- !u!1 &7813484905681125604
 GameObject:
   m_ObjectHideFlags: 0
