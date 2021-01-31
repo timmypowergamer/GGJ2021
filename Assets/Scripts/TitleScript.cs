@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using System.Linq;
 using Photon.Realtime;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class TitleScript : MonoBehaviourPunCallbacks
 {
@@ -96,8 +97,22 @@ public class TitleScript : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        PhotonNetwork.LoadLevel("GameScene");
+		for (int i = 0; i < PhotonNetwork.PlayerList.Count(); i++)
+		{
+			Hashtable props = new Hashtable
+			{
+				{"player_index", i}
+			};
+			PhotonNetwork.PlayerList[i].SetCustomProperties(props);
+		}
+
+		Invoke("TransitionScene", 3);
     }
+
+	public void TransitionScene()
+	{
+		PhotonNetwork.LoadLevel("GameScene");
+	}
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
@@ -106,6 +121,7 @@ public class TitleScript : MonoBehaviourPunCallbacks
         Player3Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 2);
         Player2Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 1);
         StartGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient && (PhotonNetwork.CurrentRoom.PlayerCount > 2));
+
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)

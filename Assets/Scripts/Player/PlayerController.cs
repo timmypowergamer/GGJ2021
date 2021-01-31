@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
 	public enum PlayerState
 	{
+		WAITING,
 		PLAYING
 	}
 
@@ -58,10 +59,27 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
-	private void OnEnable()
+	public static PlayerController LocalPlayerInstance;
+	public int PlayerIndex { get; private set; }
+
+	private void Awake()
 	{
 		_photonView = GetComponent<PhotonView>();
-		if(!_photonView.IsMine)
+		if (_photonView.IsMine)
+		{
+			LocalPlayerInstance = this;
+		}
+		else
+		{
+			Camera.gameObject.SetActive(false);
+			transform.SetLayerRecursively("OtherPlayers");
+		}
+		PlayerIndex = (int)_photonView.Owner.CustomProperties["player_index"];
+	}
+
+	private void OnEnable()
+	{
+		if(!_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			this.enabled = false;
 			return;
@@ -69,9 +87,11 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponentInChildren<Animator>();
 
-		CurrentPlayerState = PlayerState.PLAYING;
+		CurrentPlayerState = PlayerState.WAITING;
+		CurrentGroundState = GroundState.GROUNDED;
 		//Controller.enabled = false;		
 		animator.SetFloat("Forward", 0);
+
     }
 
     private void OnDisable()
@@ -101,25 +121,28 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		if (!_photonView.IsMine)
+		if (!_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			this.enabled = false;
 			return;
 		}
 
-		//look
-		LookInputValue = _inputActionReferenceLook.action.ReadValue<Vector2>();
-		lookRotation.y += LookInputValue.x * LookSensitivity;
-		lookRotation.x += LookInputValue.y * LookSensitivity;
-		lookRotation.x = Mathf.Clamp(lookRotation.x, MaxNegativeVerticalLook, MaxPositiveVerticalLook);
-		Controller.transform.localRotation = Quaternion.Euler(0, lookRotation.y, 0);
-		Camera.transform.localRotation = Quaternion.Euler(lookRotation.x, 0, 0);
+		if (CurrentPlayerState == PlayerState.PLAYING)
+		{
+			//look
+			LookInputValue = _inputActionReferenceLook.action.ReadValue<Vector2>();
+			lookRotation.y += LookInputValue.x * LookSensitivity;
+			lookRotation.x += LookInputValue.y * LookSensitivity;
+			lookRotation.x = Mathf.Clamp(lookRotation.x, MaxNegativeVerticalLook, MaxPositiveVerticalLook);
+			Controller.transform.localRotation = Quaternion.Euler(0, lookRotation.y, 0);
+			Camera.transform.localRotation = Quaternion.Euler(lookRotation.x, 0, 0);
+		}
 	}
 
 
 	private void FixedUpdate()
 	{
-		if (!_photonView.IsMine)
+		if (!_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			this.enabled = false;
 			return;
@@ -164,5 +187,14 @@ public class PlayerController : MonoBehaviour
 
             animator.SetFloat("Forward", MoveInputValue.y);
 		}		
+	}
+
+	public void StartGame(Transform startPos)
+	{
+		Controller.enabled = false;
+		transform.SetPositionAndRotation(startPos.position, startPos.rotation);
+		CurrentPlayerState = PlayerState.PLAYING;
+		CurrentGroundState = GroundState.FALLING;
+		Controller.enabled = true;
 	}
 }
