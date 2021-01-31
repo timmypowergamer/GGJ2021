@@ -16,7 +16,8 @@ public class TitleScript : MonoBehaviourPunCallbacks
 	public GameObject SecondCanvasGameObject;	
 	public GameObject LobbyCanvasGameObject;
 	public GameObject Player1Model;
-	public float xAngle, yAngle, zAngle;
+	public GameObject Player2Model;
+	public GameObject Player3Model;
 
 	// Start is called before the first frame update
     void Start()
@@ -26,12 +27,6 @@ public class TitleScript : MonoBehaviourPunCallbacks
 		LobbyCanvasGameObject.SetActive(false);		
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Player1Model.transform.Rotate(xAngle,yAngle,zAngle, Space.Self);
-    }
-	    
 	public void NewGame()
     {
         TitleCanvasGameObject.SetActive(false);
