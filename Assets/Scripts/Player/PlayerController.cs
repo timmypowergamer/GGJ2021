@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
             {
 				var hit = colliders.OrderBy(c => (c.transform.position - AttackCheckLocation.position).sqrMagnitude).First();
 				var preyGameObject = hit.gameObject;
-				var preyController = preyGameObject.GetComponent<PlayerController>();
+				var preyController = preyGameObject.GetComponentInParent<PlayerController>();
 				preyController.TakeDamage(10);
 			}
 		}
@@ -274,6 +274,7 @@ public class PlayerController : MonoBehaviour
 			jumpPressed = false;
 
             animator.SetFloat("Forward", MoveInputValue.y);
+			animator.SetFloat("Strafe", MoveInputValue.x);
 		}		
 	}
 
