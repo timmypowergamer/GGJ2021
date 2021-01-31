@@ -187,13 +187,20 @@ public class PlayerController : MonoBehaviour
 		}
     }
 
+	private int health = 100;
+
 	public void TakeDamage(int damage)
     {
 		_health -= damage;
 		var hud = PlayerHUDObject.GetComponent<PlayerHUD>();
 		hud.SetHealth(_health);
 		OuchSFX.Play();
-    }
+		if (_health <= 0)
+		{
+			animator.SetTrigger("Death");
+			//DieSFX.Play();
+		}
+	}
 
 	private void Update()
 	{
