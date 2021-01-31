@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
 			{
 				Camera.gameObject.SetActive(false);
 				transform.SetLayerRecursively("OtherPlayers");
+				GetComponent<PlayerInput>().enabled = false;
 			}
 			PlayerIndex = (int)_photonView.Owner.CustomProperties["player_index"];
 			LIBGameManager.Instance.PlayerSpawned(this);
@@ -310,21 +311,33 @@ public class PlayerController : MonoBehaviour
 
 	public void OnEnteredRange()
 	{
-		OutlineEffect.enabled = true;
-		//Play SFX and stuff here?
-		if(LIBGameManager.Instance.Exit != null)
+		if (LocalPlayerInstance.IsPredator)
 		{
-			LIBGameManager.Instance.Exit.SetOutlineEffect(true);
+			OutlineEffect.enabled = true;
+		}
+		else
+		{
+			//Play SFX and stuff here?
+			if (LIBGameManager.Instance.Exit != null)
+			{
+				LIBGameManager.Instance.Exit.SetOutlineEffect(true);
+			}
 		}
 	}
 
 	public void OnLeftRange()
 	{
-		OutlineEffect.enabled = false;
-		//Play SFX and stuff here?
-		if (LIBGameManager.Instance.Exit != null)
+		if (LocalPlayerInstance.IsPredator)
 		{
-			LIBGameManager.Instance.Exit.SetOutlineEffect(false);
+			OutlineEffect.enabled = false;
+		}
+		else
+		{
+			//Play SFX and stuff here?
+			if (LIBGameManager.Instance.Exit != null)
+			{
+				LIBGameManager.Instance.Exit.SetOutlineEffect(false);
+			}
 		}
 	}
 }
