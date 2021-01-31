@@ -58,7 +58,7 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 		}
 	}
 
-	[SerializeField] private SpawnGroup[] SpawnGroups;
+	public SpawnGroup[] SpawnGroups;
 
 	private int _currentSpawnGroup;
 	private int[] _currentSpawnPositions;
@@ -89,24 +89,24 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 
 	public void Start()
 	{
-		Debug.Log("LOcal Player = " + PhotonNetwork.LocalPlayer.ToString());
-		Debug.Log("custom props = " + PhotonNetwork.LocalPlayer.CustomProperties.ToString());
-		Debug.Log("player_index = " + PhotonNetwork.LocalPlayer.CustomProperties["player_index"]);
-		int index = (int)PhotonNetwork.LocalPlayer.CustomProperties["player_index"];
+		if (PhotonNetwork.IsConnected)
+		{
+			int index = (int)PhotonNetwork.LocalPlayer.CustomProperties["player_index"];
 
-		if (index < 2)
-		{
-			PhotonNetwork.Instantiate(LoverPrefab.name, _waitingPosition.position, _waitingPosition.rotation);
-		}
-		else
-		{
-			PhotonNetwork.Instantiate(PredatorPrefab.name, _waitingPosition.position, _waitingPosition.rotation);
-		}
-		Hashtable props = new Hashtable
+			if (index < 2)
+			{
+				PhotonNetwork.Instantiate(LoverPrefab.name, _waitingPosition.position, _waitingPosition.rotation);
+			}
+			else
+			{
+				PhotonNetwork.Instantiate(PredatorPrefab.name, _waitingPosition.position, _waitingPosition.rotation);
+			}
+			Hashtable props = new Hashtable
 			{
 				{PLAYER_LOADED_LEVEL, true}
 			};
-		PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+			PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+		}
 	}
 
 	#region PUN CALLBACKS

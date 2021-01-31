@@ -88,17 +88,20 @@ public class PlayerController : MonoBehaviour
 	private void Awake()
 	{
 		_photonView = GetComponent<PhotonView>();
-		if(!_photonView.IsMine && PhotonNetwork.IsConnected)
+		if (PhotonNetwork.IsConnected)
 		{
-			LocalPlayerInstance = this;
+			if (!_photonView.IsMine)
+			{
+				LocalPlayerInstance = this;
+			}
+			else
+			{
+				Camera.gameObject.SetActive(false);
+				transform.SetLayerRecursively("OtherPlayers");
+			}
+			PlayerIndex = (int)_photonView.Owner.CustomProperties["player_index"];
+			LIBGameManager.Instance.PlayerSpawned(this);
 		}
-		else
-		{
-			Camera.gameObject.SetActive(false);
-			transform.SetLayerRecursively("OtherPlayers");
-		}
-		PlayerIndex = (int)_photonView.Owner.CustomProperties["player_index"];
-		LIBGameManager.Instance.PlayerSpawned(this);
 	}
 
 	private void OnEnable()
@@ -120,9 +123,15 @@ public class PlayerController : MonoBehaviour
 
 	private void Start()
 	{
-		if(_photonView.IsMine)
+		if(_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			FXManager.Instance.SetPostEffect(IsPredator);
+		}
+		//for offline testing
+		if(!PhotonNetwork.IsConnected)
+		{
+			FXManager.Instance.SetPostEffect(IsPredator);
+			StartGame(LIBGameManager.Instance.SpawnGroups[0].GetSpawnPoint(IsPredator ? LIBGameManager.SpawnGroup.SpawnType.PREDATOR : LIBGameManager.SpawnGroup.SpawnType.LOVER, 0));
 		}
 	}
 
