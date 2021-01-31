@@ -440,6 +440,7 @@ Transform:
   - {fileID: 756398448341402540}
   - {fileID: 2071154599616473970}
   - {fileID: 5226540747911388598}
+  - {fileID: 4043841958210120423}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -550,7 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controller: {fileID: 1810925126131203548}
   Camera: {fileID: 1810925126643303464}
-  GroundCheckLocation: {fileID: 1810925126120444962}
+  GroundCheckLocation: {fileID: 4043841958210120423}
   _inputActionReferenceLook: {fileID: 3994854016811203755, guid: e7f46864aa2dbd340b332d0ec25b77a1, type: 3}
   MoveSpeed: 5
   LookSensitivity: 0.5
@@ -2591,6 +2592,36 @@ Transform:
   - {fileID: 8118425492406143931}
   m_Father: {fileID: 1541377108419610540}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9024643854068375607
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4043841958210120423}
+  m_Layer: 6
+  m_Name: GroundCheckPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4043841958210120423
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9024643854068375607}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.176, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1810925126120444962}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9147949890759353017
 GameObject:
