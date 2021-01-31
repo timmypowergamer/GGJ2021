@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
 	public enum PlayerState
 	{
 		WAITING,
-		PLAYING
+		PLAYING,
+		DEAD
 	}
 
 	public enum GroundState
@@ -194,12 +195,34 @@ public class PlayerController : MonoBehaviour
 
 	public void TakeDamage(int damage)
     {
-		_health -= damage;
-		HUD.SetHealth(_health);
-		OuchSFX.Play();
+		_photonView.RPC("TakeDamage", RpcTarget.All, PlayerIndex, damage);
     }
 
-	private void Update()
+	[PunRPC]
+	public void TakeDamage(int playerIndex, int damage, PhotonMessageInfo info)
+    {
+		OuchSFX.Play();
+		if (playerIndex != PlayerIndex)
+        {
+			return;
+        }
+
+		_health -= damage;
+		HUD.SetHealth(_health);
+		if (_health <= 0)
+		{
+			animator.SetTrigger("Death");
+			CurrentPlayerState = PlayerState.DEAD;
+			Invoke("Disconnect", 5);
+		}
+	}
+
+    void Disconnect()
+    {
+		PhotonNetwork.Disconnect();
+	}
+
+    private void Update()
 	{
 		if (CurrentPlayerState == PlayerState.PLAYING)
 		{
