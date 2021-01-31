@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
 	public enum PlayerState
 	{
 		WAITING,
-		PLAYING
+		PLAYING,
+		DEAD
 	}
 
 	public enum GroundState
@@ -198,7 +199,8 @@ public class PlayerController : MonoBehaviour
 		if (_health <= 0)
 		{
 			animator.SetTrigger("Death");
-			//DieSFX.Play();
+			CurrentPlayerState = PlayerState.DEAD;
+			// in 5 seconds ?
 		}
 	}
 
