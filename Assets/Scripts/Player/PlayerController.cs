@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+using System.Linq;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -29,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
 	[SerializeField] private InputActionReference _inputActionReferenceLook;
 
+	[SerializeField] private AudioSource MetallicSFX;
+	[SerializeField] private AudioSource OuchSFX;
 
 	[SerializeField] private float MoveSpeed = 5;
 	[SerializeField] private float LookSensitivity = 3;
@@ -38,6 +41,11 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private float GroundCheckDistance = 0.4f;
 	[SerializeField] private LayerMask GroundMask;
 	[SerializeField] private float JumpVelocity = 10f;
+	
+	[SerializeField] private bool IsPredator = false;
+	[SerializeField] private Transform AttackCheckLocation;
+	[SerializeField] private float AttackCheckDistance;
+	[SerializeField] private LayerMask PreyMask;
 
 	private Vector3 cameraPos;
 	private Quaternion cameraRot;
@@ -61,7 +69,7 @@ public class PlayerController : MonoBehaviour
 	private void OnEnable()
 	{
 		_photonView = GetComponent<PhotonView>();
-		if(!_photonView.IsMine)
+		if(!_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			this.enabled = false;
 			return;
@@ -99,9 +107,41 @@ public class PlayerController : MonoBehaviour
 		//}
 	}
 
+	public void Attack(InputAction.CallbackContext context)
+    {
+		if (!IsPredator || context.phase != InputActionPhase.Started)
+        {
+			return;
+        }
+
+		animator.SetTrigger("Attack");
+
+		if (Physics.CheckSphere(AttackCheckLocation.position, AttackCheckDistance, GroundMask))
+        {
+			MetallicSFX.Play();
+        }
+		else
+        {
+			var colliders = Physics.OverlapSphere(AttackCheckLocation.position, AttackCheckDistance, PreyMask);
+			if (colliders.Any())
+            {
+				var hit = colliders.OrderBy(c => (c.transform.position - AttackCheckLocation.position).sqrMagnitude).First();
+				var preyGameObject = hit.gameObject;
+				var preyController = preyGameObject.GetComponent<PlayerController>();
+				preyController.TakeDamage(10);
+			}
+		}
+    }
+
+	public void TakeDamage(int damage)
+    {
+		// assign damage
+		OuchSFX.Play();
+    }
+
 	private void Update()
 	{
-		if (!_photonView.IsMine)
+		if (!_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			this.enabled = false;
 			return;
@@ -119,7 +159,7 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		if (!_photonView.IsMine)
+		if (!_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			this.enabled = false;
 			return;
