@@ -188,8 +188,6 @@ public class PlayerController : MonoBehaviour
 		}
     }
 
-	private int health = 100;
-
 	public void TakeDamage(int damage)
     {
 		_health -= damage;
@@ -200,11 +198,16 @@ public class PlayerController : MonoBehaviour
 		{
 			animator.SetTrigger("Death");
 			CurrentPlayerState = PlayerState.DEAD;
-			// in 5 seconds ?
+			Invoke("Disconnect", 5);
 		}
 	}
 
-	private void Update()
+    void Disconnect()
+    {
+		PhotonNetwork.Disconnect();
+	}
+
+    private void Update()
 	{
 		if (CurrentPlayerState == PlayerState.PLAYING)
 		{
