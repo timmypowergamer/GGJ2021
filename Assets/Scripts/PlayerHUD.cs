@@ -53,6 +53,7 @@ public class PlayerHUD : MonoBehaviour
 		PredatorHUD.SetActive(isPredator);
 		LoverHUD.SetActive(!isPredator);
 		_predatorEndImage.gameObject.SetActive(false);
+		_loverEndImage.gameObject.SetActive(false);
 		IsPredator = isPredator;
 	}
 
