@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
 	public static PlayerController LocalPlayerInstance;
 	public int PlayerIndex { get; private set; }
-	public PlayerController Partner { get; private set; }
+	public PlayerController Partner { get; set; }
 	private bool _lastPartnerCheck = false;
 
 	private void Awake()
@@ -107,12 +107,6 @@ public class PlayerController : MonoBehaviour
 
 	private void OnEnable()
 	{
-		if(!_photonView.IsMine && PhotonNetwork.IsConnected)
-		{
-			this.enabled = false;
-			return;
-		}
-
         animator = GetComponentInChildren<Animator>();
 
 		CurrentPlayerState = PlayerState.WAITING;
@@ -195,12 +189,6 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		if (!_photonView.IsMine && PhotonNetwork.IsConnected)
-		{
-			this.enabled = false;
-			return;
-		}
-
 		if (CurrentPlayerState == PlayerState.PLAYING)
 		{
 			//look
@@ -210,14 +198,17 @@ public class PlayerController : MonoBehaviour
 			lookRotation.x = Mathf.Clamp(lookRotation.x, MaxNegativeVerticalLook, MaxPositiveVerticalLook);
 			Controller.transform.localRotation = Quaternion.Euler(0, lookRotation.y, 0);
 			Camera.transform.localRotation = Quaternion.Euler(lookRotation.x, 0, 0);
+		}
 
-			//checking range
+		//checking range
+		if (!IsPredator)
+		{
 			bool partnerCheck = IsInRangeOfPartner();
 			if (partnerCheck == true && _lastPartnerCheck == false)
 			{
 				OnEnteredRange();
 			}
-			else if(partnerCheck == false && _lastPartnerCheck == true)
+			else if (partnerCheck == false && _lastPartnerCheck == true)
 			{
 				OnLeftRange();
 			}
@@ -242,7 +233,6 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
-			this.enabled = false;
 			return;
 		}
 
@@ -289,6 +279,8 @@ public class PlayerController : MonoBehaviour
 
 	public void StartGame(Transform startPos)
 	{
+		if (PhotonNetwork.IsConnected && !_photonView.IsMine) return;
+
 		spawnPoint = startPos;
 		Controller.enabled = false;
 		transform.SetPositionAndRotation(startPos.position, startPos.rotation);
@@ -296,17 +288,9 @@ public class PlayerController : MonoBehaviour
 		CurrentGroundState = GroundState.FALLING;
 		Controller.enabled = true;
 
-		if (!IsPredator)
-		{
-			foreach (PlayerController player in LIBGameManager.Instance.Lovers)
-			{
-				if (player != this)
-				{
-					Partner = player;
-					break;
-				}
-			}
-		}
+
+		LIBGameManager.Instance.Lovers[0].Partner = LIBGameManager.Instance.Lovers[1];
+		LIBGameManager.Instance.Lovers[1].Partner = LIBGameManager.Instance.Lovers[0];	
 	}
 
 	public void OnEnteredRange()

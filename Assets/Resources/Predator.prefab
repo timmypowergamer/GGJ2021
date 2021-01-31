@@ -582,10 +582,10 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: Death
   - Type: 1
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Strafe
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Attack
   m_SynchronizeLayers:
   - SynchronizeType: 0
