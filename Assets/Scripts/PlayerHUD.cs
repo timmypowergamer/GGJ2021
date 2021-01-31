@@ -7,7 +7,10 @@ public class PlayerHUD : MonoBehaviour
 {
     public Slider healthslider;
 	public Sprite[] heartSpriteList;
+	public Sprite[] LoverEndScreen;
+	public Sprite[] PredatorEndScreen;
 	public GameObject loveState;
+	
 
 	public static PlayerHUD Instance { get; private set; }
 
