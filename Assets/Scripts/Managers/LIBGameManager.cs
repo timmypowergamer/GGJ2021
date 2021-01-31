@@ -49,7 +49,7 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 
 		public int[] GetSpawnPositions()
 		{
-			int[] posArray = new int[Spawns.Length + 1];
+			int[] posArray = new int[Spawns.Length];
 			for (int i = 0; i < Spawns.Length; i++)
 			{
 				posArray[i] = Random.Range(0, Spawns[i].Positions.Length);
