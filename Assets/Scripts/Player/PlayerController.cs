@@ -101,6 +101,10 @@ public class PlayerController : MonoBehaviour
 			if (_photonView.IsMine)
 			{
 				LocalPlayerInstance = this;
+				if (FP_WeaponModel != null)
+				{
+					FP_WeaponModel.SetActive(true);
+				}
 			}
 			else
 			{
