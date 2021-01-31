@@ -2952,7 +2952,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -682, y: -395}
-  m_SizeDelta: {x: 304.8, y: 124.3}
+  m_SizeDelta: {x: 415.2, y: 124.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1634056780
 MonoBehaviour:
@@ -2987,7 +2987,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: XXXX
+  m_Text: WWWW
 --- !u!222 &1634056781
 CanvasRenderer:
   m_ObjectHideFlags: 0
