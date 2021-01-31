@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -48,6 +49,9 @@ public class PlayerController : MonoBehaviour
 	private Vector3 Velocity;
 	private bool jumpPressed = false;
 
+	//Netoworking
+	private PhotonView _photonView;
+
 
 	public PlayerInput Input { get; private set; }
 	private Transform spawnPoint;
@@ -55,7 +59,14 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
 	private void OnEnable()
-	{		
+	{
+		_photonView = GetComponent<PhotonView>();
+		if(!_photonView.IsMine)
+		{
+			this.enabled = false;
+			return;
+		}
+
         animator = GetComponentInChildren<Animator>();
 
 		CurrentPlayerState = PlayerState.PLAYING;
@@ -90,6 +101,12 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
+		if (!_photonView.IsMine)
+		{
+			this.enabled = false;
+			return;
+		}
+
 		//look
 		LookInputValue = _inputActionReferenceLook.action.ReadValue<Vector2>();
 		lookRotation.y += LookInputValue.x * LookSensitivity;
@@ -102,6 +119,12 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (!_photonView.IsMine)
+		{
+			this.enabled = false;
+			return;
+		}
+
 		if (CurrentPlayerState == PlayerState.PLAYING)
 		{
 			//Ground check

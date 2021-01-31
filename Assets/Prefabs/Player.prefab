@@ -453,7 +453,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810925126120278018}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8d47827157390ea46a947a979ad74e8d, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 04cd4060dd6e4f64e9a94697989f7d80, type: 3}
   m_Controller: {fileID: 9100000, guid: c2f035d42305a364aaf06d54bd8b25af, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -477,7 +477,7 @@ CharacterController:
   m_Height: 1.8
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_StepOffset: 0.5
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}

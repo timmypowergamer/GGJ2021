@@ -136,7 +136,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0.5
   tonemap:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   tonemapExposurePre:
     m_OverrideState: 0
@@ -170,8 +170,8 @@ MonoBehaviour:
     min: 0
     max: 1
   tintColor:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 0}
+    m_OverrideState: 1
+    m_Value: {r: 0.32154986, g: 0.30113026, b: 0.6320754, a: 0.7294118}
     hdr: 0
     showAlpha: 1
     showEyeDropper: 1
@@ -197,8 +197,8 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: {fileID: 0}
   bloomIntensity:
-    m_OverrideState: 0
-    m_Value: 2.52
+    m_OverrideState: 1
+    m_Value: 2
     min: 0
     max: 10
   bloomThreshold:
