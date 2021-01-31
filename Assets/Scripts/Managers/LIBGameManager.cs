@@ -240,7 +240,6 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 
 	private void GameWasWon()
 	{
-		//Yay?
-		Debug.Log("Game Was Won!");
+        AllPlayers.ForEach(player => player.CurrentGameOverState = PlayerController.GameOverState.LOVERS_WON);
 	}
 }

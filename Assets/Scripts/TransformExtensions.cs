@@ -22,10 +22,10 @@ public static class TransformExtensions
 	public static void SetLayerRecursively(this Transform transform, string layerName)
 	{
 		int layer = LayerMask.NameToLayer(layerName);
-
+		transform.gameObject.layer = layer;
 		foreach (Transform t in transform)
 		{
-			t.gameObject.layer = layer;
+			t.SetLayerRecursively(layerName);
 		}
 	}
 
