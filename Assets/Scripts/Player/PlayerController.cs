@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private Transform AttackCheckLocation;
 	[SerializeField] private float AttackCheckDistance;
 	[SerializeField] private LayerMask PreyMask;
+	[SerializeField] private GameObject FP_WeaponModel;
 
 	[Header("Lover Stuff")]
 	[SerializeField] private GameObject PlayerHUDObject;
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
 	public PlayerController Partner { get; set; }
 	private bool _lastPartnerCheck = false;
 
-	public PlayerHUD HUD { get; set; }
+	public PlayerHUD HUD { get { return PlayerHUD.Instance; } }
 	private const int HitDamage = 10;
 	private const int MaxHealth = 100;
 	private int _health = MaxHealth;
@@ -105,6 +106,10 @@ public class PlayerController : MonoBehaviour
 				Camera.gameObject.SetActive(false);
 				transform.SetLayerRecursively("OtherPlayers");
 				GetComponent<PlayerInput>().enabled = false;
+				if (FP_WeaponModel != null)
+				{
+					FP_WeaponModel.SetActive(false);
+				}
 			}
 			PlayerIndex = (int)_photonView.Owner.CustomProperties["player_index"];
 			LIBGameManager.Instance.PlayerSpawned(this);
@@ -190,8 +195,7 @@ public class PlayerController : MonoBehaviour
 	public void TakeDamage(int damage)
     {
 		_health -= damage;
-		var hud = PlayerHUDObject.GetComponent<PlayerHUD>();
-		hud.SetHealth(_health);
+		HUD.SetHealth(_health);
 		OuchSFX.Play();
     }
 
@@ -296,12 +300,15 @@ public class PlayerController : MonoBehaviour
 		CurrentPlayerState = PlayerState.PLAYING;
 		CurrentGroundState = GroundState.FALLING;
 		Controller.enabled = true;
-		HUD = PlayerHUDObject.GetComponent<PlayerHUD>();
 		HUD.SetMaxHealth(MaxHealth);
 		HUD.SetHealth(_health);
+		HUD.gameObject.SetActive(true);
 
-		LIBGameManager.Instance.Lovers[0].Partner = LIBGameManager.Instance.Lovers[1];
-		LIBGameManager.Instance.Lovers[1].Partner = LIBGameManager.Instance.Lovers[0];	
+		if (PhotonNetwork.IsConnected)
+		{
+			LIBGameManager.Instance.Lovers[0].Partner = LIBGameManager.Instance.Lovers[1];
+			LIBGameManager.Instance.Lovers[1].Partner = LIBGameManager.Instance.Lovers[0];
+		}
 	}
 
 	public void OnEnteredRange()

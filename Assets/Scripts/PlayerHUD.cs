@@ -8,7 +8,16 @@ public class PlayerHUD : MonoBehaviour
     public Slider healthslider;
 	public Sprite[] heartSpriteList;
 	public GameObject loveState;
-	
+
+	public static PlayerHUD Instance { get; private set; }
+
+	private void Awake()
+	{
+		Instance = this;
+		gameObject.SetActive(false);
+	}
+
+
 	public void SetMaxHealth(int health)
 	{
 		healthslider.maxValue = health;

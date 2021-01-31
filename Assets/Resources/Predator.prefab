@@ -448,6 +448,8 @@ MonoBehaviour:
   PreyMask:
     serializedVersion: 2
     m_Bits: 128
+  FP_WeaponModel: {fileID: 1853093540321101537}
+  PlayerHUDObject: {fileID: 0}
   OutlineEffect: {fileID: 0}
   LoveRadius: 10
 --- !u!114 &1810925126120278017
@@ -656,7 +658,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 191
+    m_Bits: 703
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2089,6 +2091,7 @@ Transform:
   - {fileID: 1220596770679484473}
   - {fileID: 8324317524777001913}
   - {fileID: 8972679045571832689}
+  - {fileID: 1368059015536925787}
   m_Father: {fileID: 7449244772127884068}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2433,6 +2436,89 @@ Transform:
   m_Father: {fileID: 526940078207792072}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1546681977516866480
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3292386942560247970}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00368
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00148
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.00212
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.30664307
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.6371578
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.30664307
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.6371578
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 231.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_Name
+      value: Crowbar__FPModel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 39893100ec87959469317404c77ffd81, type: 3}
+--- !u!1 &1853093540321101537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 39893100ec87959469317404c77ffd81, type: 3}
+  m_PrefabInstance: {fileID: 1546681977516866480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1368059015536925787 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 39893100ec87959469317404c77ffd81, type: 3}
+  m_PrefabInstance: {fileID: 1546681977516866480}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8867558460587969690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2499,6 +2585,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 39893100ec87959469317404c77ffd81, type: 3}
       propertyPath: m_Name
       value: Crowbar_BS
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 39893100ec87959469317404c77ffd81, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39893100ec87959469317404c77ffd81, type: 3}
