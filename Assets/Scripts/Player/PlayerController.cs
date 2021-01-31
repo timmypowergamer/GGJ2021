@@ -190,10 +190,21 @@ public class PlayerController : MonoBehaviour
 
 	public void TakeDamage(int damage)
     {
+		_photonView.RPC("TakeDamage", RpcTarget.All, PlayerIndex, damage);
+    }
+
+	[PunRPC]
+	public void TakeDamage(int playerIndex, int damage, PhotonMessageInfo info)
+    {
+		OuchSFX.Play();
+		if (playerIndex != PlayerIndex)
+        {
+			return;
+        }
+
 		_health -= damage;
 		var hud = PlayerHUDObject.GetComponent<PlayerHUD>();
 		hud.SetHealth(_health);
-		OuchSFX.Play();
 		if (_health <= 0)
 		{
 			animator.SetTrigger("Death");
