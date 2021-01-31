@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using Photon.Pun;
+using System.Linq;
+using Photon.Realtime;
 
-public class TitleScript : MonoBehaviour
+public class TitleScript : MonoBehaviourPunCallbacks
 {
-	public string newGameScene;
+    public InputField _roomCodeInput;
+    public Text _lobbyRoomCode;
+    public string newGameScene;
 	public GameObject TitleCanvasGameObject;
 	public GameObject SecondCanvasGameObject;	
 	public GameObject LobbyCanvasGameObject;
@@ -33,13 +39,44 @@ public class TitleScript : MonoBehaviour
 		LobbyCanvasGameObject.SetActive(false);	
     }
 
-	public void HostGame()
+    static string createRoomCode()
     {
+        return new string(Enumerable.Range(0, 4).Select(_ => (char)(Random.Range(0, 26) + 'A')).ToArray());
+    }
+
+    public void HostGame()
+    {
+        _roomCodeInput.text = createRoomCode();
+        PhotonNetwork.CreateRoom(_roomCodeInput.text, new RoomOptions() { MaxPlayers = 3 }, TypedLobby.Default);
+    }
+
+    public void JoinGame()
+    {
+        PhotonNetwork.JoinRoom(_roomCodeInput.text);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        _lobbyRoomCode.text = _roomCodeInput.text;
         TitleCanvasGameObject.SetActive(false);
-		SecondCanvasGameObject.SetActive(false);
-		LobbyCanvasGameObject.SetActive(true);	
-    }	
-	
+        SecondCanvasGameObject.SetActive(false);
+        LobbyCanvasGameObject.SetActive(true);
+    }
+
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        TitleCanvasGameObject.SetActive(false);
+        SecondCanvasGameObject.SetActive(true);
+        LobbyCanvasGameObject.SetActive(false);
+    }
+
     public void GoBack()
     {
         TitleCanvasGameObject.SetActive(true);
@@ -53,5 +90,17 @@ public class TitleScript : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        Debug.Log($"{newPlayer.NickName} entered.");
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        Debug.Log($"{otherPlayer.NickName} left.");
     }
 }
