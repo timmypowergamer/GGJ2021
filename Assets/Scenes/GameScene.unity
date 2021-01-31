@@ -346,11 +346,14 @@ MonoBehaviour:
       Positions:
       - {fileID: 1585434006}
       - {fileID: 1585434005}
-  LoverPrefab: {fileID: 1810925126120278018, guid: 6c104fd9787334a4aac74f432b0b84d0, type: 3}
-  PredatorPrefab: {fileID: 1810925126120278018, guid: 7492ebd7131b0f345a5ff856fa5f4c5a, type: 3}
+  LoverPrefab: {fileID: 1810925126120278018, guid: f9b586da7c23c9246a5ef0ed41c80ee8, type: 3}
+  PredatorPrefab: {fileID: 1810925126120278018, guid: b7ad6ea54c3cb4642a5c7f7426d06469, type: 3}
   WeaponPrefab: {fileID: 3692392263752869151, guid: 6c7dff716aaf80a4c9654e97bfe83c67, type: 3}
   ExitPrefab: {fileID: 3837208291165178413, guid: a27e21b153cffdb40844f24a3fa53d0b, type: 3}
   _waitingPosition: {fileID: 2087865970}
+  Lovers: []
+  Predator: {fileID: 0}
+  AllPlayers: []
 --- !u!4 &598963931
 Transform:
   m_ObjectHideFlags: 0
@@ -427,6 +430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1253111830}
   - component: {fileID: 1253111829}
+  - component: {fileID: 1253111831}
   m_Layer: 0
   m_Name: PostProcess
   m_TagString: Untagged
@@ -465,6 +469,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1253111831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253111828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226e1e5b18a03f549bb45accd20f8b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NearSightedEffect: {fileID: 11400000, guid: c9e9681d42519664d937da13eb2136c0, type: 2}
+  FarSightedEffect: {fileID: 11400000, guid: 8b33598c708be2049a3125803c6a4068, type: 2}
+  PostProcessVolume: {fileID: 1253111829}
 --- !u!1001 &1585434004
 PrefabInstance:
   m_ObjectHideFlags: 0

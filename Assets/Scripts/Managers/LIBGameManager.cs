@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 
 using UnityEngine;
 //using UnityEngine.UI;
@@ -69,6 +69,10 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 	[SerializeField] private GameObject ExitPrefab;
 
 	[SerializeField] private Transform _waitingPosition;
+
+	public List<PlayerController> Lovers = new List<PlayerController>();
+	public PlayerController Predator;
+	public List<PlayerController> AllPlayers = new List<PlayerController>();
 
 	private void Awake()
 	{
@@ -204,5 +208,18 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 		}
 
 		return true;
+	}
+
+	public void PlayerSpawned(PlayerController newPlayer)
+	{
+		if(newPlayer.IsPredator)
+		{
+			Predator = newPlayer;
+		}
+		else
+		{
+			Lovers.Add(newPlayer);
+		}
+		AllPlayers.Add(newPlayer);
 	}
 }

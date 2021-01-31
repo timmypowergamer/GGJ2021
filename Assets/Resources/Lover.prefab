@@ -742,7 +742,7 @@ GameObject:
   - component: {fileID: 1810925126120278017}
   - component: {fileID: 1810925126126217110}
   m_Layer: 6
-  m_Name: Player
+  m_Name: Lover
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -875,7 +875,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controller: {fileID: 1810925126131203548}
   Camera: {fileID: 1810925126643303464}
-  GroundCheckLocation: {fileID: 4043841958210120423}
   _inputActionReferenceLook: {fileID: 3994854016811203755, guid: e7f46864aa2dbd340b332d0ec25b77a1, type: 3}
   MetallicSFX: {fileID: 0}
   OuchSFX: {fileID: 284718218926703333}
@@ -889,12 +888,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   JumpVelocity: 10
-  IsPredator: 0
+  GroundCheckLocation: {fileID: 4043841958210120423}
+  _isPredator: 0
   AttackCheckLocation: {fileID: 0}
   AttackCheckDistance: 0
   PreyMask:
     serializedVersion: 2
     m_Bits: 0
+  OutlineEffect: {fileID: 2658761963493141332}
+  LoveRadius: 10
 --- !u!114 &1810925126120278017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1863,6 +1865,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771001264722185097}
   - component: {fileID: 7985584237310802241}
+  - component: {fileID: 2658761963493141332}
   m_Layer: 0
   m_Name: LoverModel
   m_TagString: Untagged
@@ -2001,6 +2004,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.00016076234, y: -0.0011102948, z: 0.0013489447}
     m_Extent: {x: 0.0063921837, y: 0.0099659255, z: 0.0036819503}
   m_DirtyAABB: 0
+--- !u!114 &2658761963493141332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876319703127773253}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 3
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &5950240104089642052
 GameObject:
   m_ObjectHideFlags: 0
