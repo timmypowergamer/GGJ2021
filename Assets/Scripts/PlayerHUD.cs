@@ -10,6 +10,14 @@ public class PlayerHUD : MonoBehaviour
 	public Sprite[] LoverEndScreen;
 	public Sprite[] PredatorEndScreen;
 	public GameObject loveState;
+
+	public Image _predatorEndImage;
+	public Image _loverEndImage;
+
+	public GameObject PredatorHUD;
+	public GameObject LoverHUD;
+
+	private bool IsPredator = false;
 	
 
 	public static PlayerHUD Instance { get; private set; }
@@ -17,7 +25,7 @@ public class PlayerHUD : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
-		gameObject.SetActive(false);
+		//gameObject.SetActive(false);
 	}
 
 
@@ -38,6 +46,44 @@ public class PlayerHUD : MonoBehaviour
 			loveState.GetComponent<Image> ().sprite = heartSpriteList[1];
 		else
 			loveState.GetComponent<Image> ().sprite = heartSpriteList[0];
+	}
+
+	public void SetOwner(bool isPredator)
+	{
+		PredatorHUD.SetActive(isPredator);
+		LoverHUD.SetActive(!isPredator);
+		_predatorEndImage.gameObject.SetActive(false);
+		IsPredator = isPredator;
+	}
+
+	public void SetPredatorWon()
+	{
+		_predatorEndImage.sprite = PredatorEndScreen[1];
+		_predatorEndImage.gameObject.SetActive(true);
+	}
+
+	public void SetPredatorLost()
+	{
+		_predatorEndImage.sprite = PredatorEndScreen[0];
+		_predatorEndImage.gameObject.SetActive(true);
+	}
+
+	public void SetIsDead()
+	{
+		_loverEndImage.sprite = LoverEndScreen[0];
+		_loverEndImage.gameObject.SetActive(true);
+	}
+
+	public void SetLoverDead()
+	{
+		_loverEndImage.sprite = LoverEndScreen[1];
+		_loverEndImage.gameObject.SetActive(true);
+	}
+
+	public void SetLoversWon()
+	{
+		_loverEndImage.sprite = LoverEndScreen[2];
+		_loverEndImage.gameObject.SetActive(true);
 	}
 	
 	

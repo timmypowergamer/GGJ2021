@@ -242,11 +242,11 @@ public class PlayerController : MonoBehaviour
 		{
 			if (CurrentGameOverState == GameOverState.PREDATOR_WON)
 			{
-				Debug.Log("Predator - You win, killed the bastard(s)!");
+				PlayerHUD.Instance.SetPredatorWon();
 			}
 			if (CurrentGameOverState == GameOverState.LOVERS_WON)
 			{
-				Debug.Log("Predator - You lose, they escaped!");
+				PlayerHUD.Instance.SetPredatorLost();
 			}
 		} 
 		else
@@ -255,16 +255,16 @@ public class PlayerController : MonoBehaviour
 			{
 				if (CurrentPlayerState == PlayerState.DEAD)
                 {
-					Debug.Log("Lover - You lose, you died!");
+					PlayerHUD.Instance.SetIsDead();
 				}
 				else
                 {
-					Debug.Log("Lover - You lose, your lover died!");
+					PlayerHUD.Instance.SetLoverDead();
 				}
 			}
 			if (CurrentGameOverState == GameOverState.LOVERS_WON)
 			{
-				Debug.Log("Lover - You win, you and your lover escaped!");
+				PlayerHUD.Instance.SetLoversWon();
 			}
 		}
 
@@ -384,7 +384,7 @@ public class PlayerController : MonoBehaviour
 		Controller.enabled = true;
 		HUD.SetMaxHealth(MaxHealth);
 		HUD.SetHealth(_health);
-		if(!IsPredator) HUD.gameObject.SetActive(true);
+		HUD.SetOwner(IsPredator);
 
 		if (PhotonNetwork.IsConnected)
 		{
