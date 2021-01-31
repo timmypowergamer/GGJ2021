@@ -21,6 +21,7 @@ public class TitleScript : MonoBehaviourPunCallbacks
     public GameObject Player1Model;
 	public GameObject Player2Model;
 	public GameObject Player3Model;
+    public Button StartGameButton;
 
 	// Start is called before the first frame update
     void Start()
@@ -59,6 +60,7 @@ public class TitleScript : MonoBehaviourPunCallbacks
         _lobbyRoomCode.text = _roomCodeInput.text;
         Player3Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 2);
         Player2Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 1);
+        StartGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient && (PhotonNetwork.CurrentRoom.PlayerCount > 2));
         TitleCanvasGameObject.SetActive(false);
         SecondCanvasGameObject.SetActive(false);
         LobbyCanvasGameObject.SetActive(true);
@@ -92,12 +94,18 @@ public class TitleScript : MonoBehaviourPunCallbacks
         Application.Quit();
     }
 
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel("GameScene");
+    }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
         Debug.Log($"{newPlayer.NickName} entered.");
         Player3Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 2);
         Player2Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 1);
+        StartGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient && (PhotonNetwork.CurrentRoom.PlayerCount > 2));
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
@@ -106,5 +114,6 @@ public class TitleScript : MonoBehaviourPunCallbacks
         Debug.Log($"{otherPlayer.NickName} left.");
         Player3Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 2);
         Player2Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 1);
+        StartGameButton.gameObject.SetActive(PhotonNetwork.IsMasterClient && (PhotonNetwork.CurrentRoom.PlayerCount > 2));
     }
 }
