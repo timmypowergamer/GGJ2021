@@ -104,6 +104,42 @@ Transform:
   m_Father: {fileID: 3513387875219076624}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7554139338942383049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891078613637400307}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 1, b: 0.049153566, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &6129279157989291040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891078614780456861}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0, g: 1, b: 0.049153566, a: 1}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &902840991599316391
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,6 +294,7 @@ GameObject:
   - component: {fileID: 4937336535633006490}
   - component: {fileID: 5632077213849198937}
   - component: {fileID: 3233899517272772131}
+  - component: {fileID: 4086297720987142068}
   m_Layer: 0
   m_Name: ES1
   m_TagString: Untagged
@@ -341,6 +378,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4086297720987142068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415602027848920631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158ee0dd5722d4245a9128bebfa1b1b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 6129279157989291040}
 --- !u!1 &2242113400020603123
 GameObject:
   m_ObjectHideFlags: 0
@@ -4706,6 +4756,7 @@ GameObject:
   - component: {fileID: 3498554458540740122}
   - component: {fileID: 7977958497313309825}
   - component: {fileID: 2565257067388967681}
+  - component: {fileID: 2331743829304651191}
   m_Layer: 0
   m_Name: ES2
   m_TagString: Untagged
@@ -4789,6 +4840,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2331743829304651191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8081035977790535442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 158ee0dd5722d4245a9128bebfa1b1b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outline: {fileID: 7554139338942383049}
 --- !u!1 &8574875187499159826
 GameObject:
   m_ObjectHideFlags: 0
@@ -8257,6 +8321,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4816007874679688098, guid: ee2736ccd72ce4f47a0cbef0de4ee19b, type: 3}
   m_PrefabInstance: {fileID: 5658872859056904933}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &891078614780456861 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4816007874679420280, guid: ee2736ccd72ce4f47a0cbef0de4ee19b, type: 3}
+  m_PrefabInstance: {fileID: 5658872859056904933}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5658872859331875322
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8503,6 +8572,11 @@ PrefabInstance:
 --- !u!4 &891078613637167145 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4816007874679688098, guid: ee2736ccd72ce4f47a0cbef0de4ee19b, type: 3}
+  m_PrefabInstance: {fileID: 5658872860195566475}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &891078613637400307 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4816007874679420280, guid: ee2736ccd72ce4f47a0cbef0de4ee19b, type: 3}
   m_PrefabInstance: {fileID: 5658872860195566475}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5658872860286932983

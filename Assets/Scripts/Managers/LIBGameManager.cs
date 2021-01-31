@@ -73,6 +73,7 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 	public List<PlayerController> Lovers = new List<PlayerController>();
 	public PlayerController Predator;
 	public List<PlayerController> AllPlayers = new List<PlayerController>();
+	public ExitLocation Exit;
 
 	private void Awake()
 	{
@@ -106,6 +107,12 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 				{PLAYER_LOADED_LEVEL, true}
 			};
 			PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+		}
+		else
+		{
+			int group = GetRandomSpawnGroup();
+			int[] positions = SpawnGroups[group].GetSpawnPositions();
+			StartGame(group, positions, new PhotonMessageInfo());
 		}
 	}
 
@@ -221,5 +228,19 @@ public class LIBGameManager : MonoBehaviourPunCallbacks
 			Lovers.Add(newPlayer);
 		}
 		AllPlayers.Add(newPlayer);
+	}
+
+	public void SetUpExit(ExitTrigger trigger)
+	{
+		Transform exitSpawnPos = SpawnGroups[_currentSpawnGroup].GetSpawnPoint(SpawnGroup.SpawnType.EXIT, _currentSpawnPositions[4]);
+		Exit = exitSpawnPos.GetComponent<ExitLocation>();
+		Exit.SetOutlineEffect(false);
+		trigger.OnGameWon += GameWasWon;
+	}
+
+	private void GameWasWon()
+	{
+		//Yay?
+		Debug.Log("Game Was Won!");
 	}
 }

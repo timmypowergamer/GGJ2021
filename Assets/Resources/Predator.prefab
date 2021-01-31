@@ -429,7 +429,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Controller: {fileID: 1810925126131203548}
   Camera: {fileID: 1810925126643303464}
-  GroundCheckLocation: {fileID: 4043841958210120423}
   _inputActionReferenceLook: {fileID: 3994854016811203755, guid: e7f46864aa2dbd340b332d0ec25b77a1, type: 3}
   MetallicSFX: {fileID: 5941304204810918785}
   OuchSFX: {fileID: 0}
@@ -443,12 +442,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   JumpVelocity: 10
-  IsPredator: 1
+  GroundCheckLocation: {fileID: 4043841958210120423}
+  _isPredator: 1
   AttackCheckLocation: {fileID: 6300983334014537113}
   AttackCheckDistance: 0.5
   PreyMask:
     serializedVersion: 2
     m_Bits: 128
+  OutlineEffect: {fileID: 0}
+  LoveRadius: 10
 --- !u!114 &1810925126120278017
 MonoBehaviour:
   m_ObjectHideFlags: 0

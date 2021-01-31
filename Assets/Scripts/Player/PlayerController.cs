@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
 		_photonView = GetComponent<PhotonView>();
 		if (PhotonNetwork.IsConnected)
 		{
-			if (!_photonView.IsMine)
+			if (_photonView.IsMine)
 			{
 				LocalPlayerInstance = this;
 			}
@@ -312,11 +312,19 @@ public class PlayerController : MonoBehaviour
 	{
 		OutlineEffect.enabled = true;
 		//Play SFX and stuff here?
+		if(LIBGameManager.Instance.Exit != null)
+		{
+			LIBGameManager.Instance.Exit.SetOutlineEffect(true);
+		}
 	}
 
 	public void OnLeftRange()
 	{
 		OutlineEffect.enabled = false;
 		//Play SFX and stuff here?
+		if (LIBGameManager.Instance.Exit != null)
+		{
+			LIBGameManager.Instance.Exit.SetOutlineEffect(false);
+		}
 	}
 }

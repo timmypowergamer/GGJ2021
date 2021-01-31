@@ -568,7 +568,7 @@ MonoBehaviour:
     max: 0.5
   depthOfFieldAperture:
     m_OverrideState: 1
-    m_Value: 500
+    m_Value: 5000
   depthOfFieldFocusSpeed:
     m_OverrideState: 0
     m_Value: 5
