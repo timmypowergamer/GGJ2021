@@ -15,7 +15,10 @@ public class TitleScript : MonoBehaviourPunCallbacks
 	public GameObject TitleCanvasGameObject;
 	public GameObject SecondCanvasGameObject;	
 	public GameObject LobbyCanvasGameObject;
-	public GameObject Player1Model;
+    public GameObject Player1Panel;
+    public GameObject Player2Panel;
+    public GameObject Player3Panel;
+    public GameObject Player1Model;
 	public GameObject Player2Model;
 	public GameObject Player3Model;
 
@@ -54,6 +57,8 @@ public class TitleScript : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         _lobbyRoomCode.text = _roomCodeInput.text;
+        Player3Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 2);
+        Player2Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 1);
         TitleCanvasGameObject.SetActive(false);
         SecondCanvasGameObject.SetActive(false);
         LobbyCanvasGameObject.SetActive(true);
@@ -91,11 +96,15 @@ public class TitleScript : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
         Debug.Log($"{newPlayer.NickName} entered.");
+        Player3Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 2);
+        Player2Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 1);
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         base.OnPlayerLeftRoom(otherPlayer);
         Debug.Log($"{otherPlayer.NickName} left.");
+        Player3Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 2);
+        Player2Panel.SetActive(PhotonNetwork.CurrentRoom.PlayerCount > 1);
     }
 }
