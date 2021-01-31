@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private LayerMask PreyMask;
 
 	[Header("Lover Stuff")]
+	[SerializeField] private GameObject PlayerHUDObject;
 	[SerializeField] private Outline OutlineEffect;
 	[SerializeField] private float LoveRadius = 10f;
 
@@ -78,12 +79,17 @@ public class PlayerController : MonoBehaviour
 	public PlayerInput Input { get; private set; }
 	private Transform spawnPoint;
 
-    private Animator animator;
+	private Animator animator;
 
 	public static PlayerController LocalPlayerInstance;
 	public int PlayerIndex { get; private set; }
 	public PlayerController Partner { get; set; }
 	private bool _lastPartnerCheck = false;
+
+	public PlayerHUD HUD { get; set; }
+	private const int HitDamage = 10;
+	private const int MaxHealth = 100;
+	private int _health = MaxHealth;
 
 	private void Awake()
 	{
@@ -176,14 +182,16 @@ public class PlayerController : MonoBehaviour
 				var hit = colliders.OrderBy(c => (c.transform.position - AttackCheckLocation.position).sqrMagnitude).First();
 				var preyGameObject = hit.gameObject;
 				var preyController = preyGameObject.GetComponentInParent<PlayerController>();
-				preyController.TakeDamage(10);
+				preyController.TakeDamage(HitDamage);
 			}
 		}
     }
 
 	public void TakeDamage(int damage)
     {
-		// assign damage
+		_health -= damage;
+		var hud = PlayerHUDObject.GetComponent<PlayerHUD>();
+		hud.SetHealth(_health);
 		OuchSFX.Play();
     }
 
@@ -288,7 +296,9 @@ public class PlayerController : MonoBehaviour
 		CurrentPlayerState = PlayerState.PLAYING;
 		CurrentGroundState = GroundState.FALLING;
 		Controller.enabled = true;
-
+		HUD = PlayerHUDObject.GetComponent<PlayerHUD>();
+		HUD.SetMaxHealth(MaxHealth);
+		HUD.SetHealth(_health);
 
 		LIBGameManager.Instance.Lovers[0].Partner = LIBGameManager.Instance.Lovers[1];
 		LIBGameManager.Instance.Lovers[1].Partner = LIBGameManager.Instance.Lovers[0];	
@@ -303,6 +313,7 @@ public class PlayerController : MonoBehaviour
 		else
 		{
 			//Play SFX and stuff here?
+			HUD.SetLove(true);
 			if (LIBGameManager.Instance.Exit != null)
 			{
 				LIBGameManager.Instance.Exit.SetOutlineEffect(true);
@@ -319,6 +330,7 @@ public class PlayerController : MonoBehaviour
 		else
 		{
 			//Play SFX and stuff here?
+			HUD.SetLove(false);
 			if (LIBGameManager.Instance.Exit != null)
 			{
 				LIBGameManager.Instance.Exit.SetOutlineEffect(false);
