@@ -558,7 +558,7 @@ MonoBehaviour:
       m_Bits: 190
   depthOfFieldDistance:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 3
     min: 1
     max: 100
   depthOfFieldFocalLength:
@@ -570,8 +570,8 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 3000
   depthOfFieldFocusSpeed:
-    m_OverrideState: 1
-    m_Value: 0.001
+    m_OverrideState: 0
+    m_Value: 5
     min: 0.001
     max: 5
   depthOfFieldTransparentSupport:
@@ -583,7 +583,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 129
   depthOfFieldForegroundBlur:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   depthOfFieldForegroundBlurHQ:
     m_OverrideState: 0
