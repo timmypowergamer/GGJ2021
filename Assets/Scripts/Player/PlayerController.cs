@@ -16,6 +16,13 @@ public class PlayerController : MonoBehaviour
 		DEAD
 	}
 
+	public enum GameOverState
+    {
+		NOT_OVER,
+		LOVERS_WON,
+		PREDATOR_WON
+    }
+
 	public enum GroundState
 	{
 		GROUNDED,
@@ -24,6 +31,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public PlayerState CurrentPlayerState { get; private set; }
+	public GameOverState CurrentGameOverState { get; set; }
 	public GroundState CurrentGroundState { get; private set; }
 
 
@@ -125,6 +133,7 @@ public class PlayerController : MonoBehaviour
 	{
         animator = GetComponentInChildren<Animator>();
 
+		CurrentGameOverState = GameOverState.NOT_OVER;
 		CurrentPlayerState = PlayerState.WAITING;
 		CurrentGroundState = GroundState.GROUNDED;
 		Controller.enabled = false;		
@@ -222,8 +231,44 @@ public class PlayerController : MonoBehaviour
 		{
 			animator.SetTrigger("Death");
 			CurrentPlayerState = PlayerState.DEAD;
-			Invoke("Disconnect", 5);
+			CurrentGameOverState = GameOverState.PREDATOR_WON;
 		}
+	}
+
+	[PunRPC]
+	public void GameOver(PhotonMessageInfo info)
+    {
+		if (IsPredator)
+		{
+			if (CurrentGameOverState == GameOverState.PREDATOR_WON)
+			{
+				Debug.Log("Predator - You win, killed the bastard(s)!");
+			}
+			if (CurrentGameOverState == GameOverState.LOVERS_WON)
+			{
+				Debug.Log("Predator - You lose, they escaped!");
+			}
+		} 
+		else
+        {
+			if (CurrentGameOverState == GameOverState.PREDATOR_WON)
+			{
+				if (CurrentPlayerState == PlayerState.DEAD)
+                {
+					Debug.Log("Lover - You lose, you died!");
+				}
+				else
+                {
+					Debug.Log("Lover - You lose, your lover died!");
+				}
+			}
+			if (CurrentGameOverState == GameOverState.LOVERS_WON)
+			{
+				Debug.Log("Lover - You win, you and your lover escaped!");
+			}
+		}
+
+		Invoke("Disconnect", 5);
 	}
 
     void Disconnect()
@@ -320,6 +365,11 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Forward", MoveInputValue.y);
 			animator.SetFloat("Strafe", MoveInputValue.x);
 		}		
+
+		if (CurrentGameOverState != GameOverState.NOT_OVER)
+        {
+			_photonView.RPC("GameOver", RpcTarget.All);
+		}
 	}
 
 	public void StartGame(Transform startPos)
