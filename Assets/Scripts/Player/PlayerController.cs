@@ -208,7 +208,10 @@ public class PlayerController : MonoBehaviour
         }
 
 		_health -= damage;
-		HUD.SetHealth(_health);
+		if (_photonView.IsMine)
+		{
+			HUD.SetHealth(_health);
+		}
 		if (_health <= 0)
 		{
 			animator.SetTrigger("Death");
@@ -325,7 +328,7 @@ public class PlayerController : MonoBehaviour
 		Controller.enabled = true;
 		HUD.SetMaxHealth(MaxHealth);
 		HUD.SetHealth(_health);
-		HUD.gameObject.SetActive(true);
+		if(!IsPredator) HUD.gameObject.SetActive(true);
 
 		if (PhotonNetwork.IsConnected)
 		{

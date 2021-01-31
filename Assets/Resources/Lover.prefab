@@ -895,6 +895,7 @@ MonoBehaviour:
   PreyMask:
     serializedVersion: 2
     m_Bits: 0
+  FP_WeaponModel: {fileID: 0}
   PlayerHUDObject: {fileID: 0}
   OutlineEffect: {fileID: 2658761963493141332}
   LoveRadius: 10
