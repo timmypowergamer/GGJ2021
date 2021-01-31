@@ -96,7 +96,7 @@ public class TitleScript : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-
+        PhotonNetwork.LoadLevel("GameScene");
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
