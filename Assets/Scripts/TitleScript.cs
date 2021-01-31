@@ -55,6 +55,11 @@ public class TitleScript : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(_roomCodeInput.text);
     }
 
+    public override void OnJoinRoomFailed(short errorCode, string message)
+    {
+        Debug.Log($"Failed to join room: {message}");
+    }
+
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
