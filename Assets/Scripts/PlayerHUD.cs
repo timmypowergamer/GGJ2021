@@ -55,6 +55,7 @@ public class PlayerHUD : MonoBehaviour
 		_predatorEndImage.gameObject.SetActive(false);
 		_loverEndImage.gameObject.SetActive(false);
 		IsPredator = isPredator;
+		SetLove(false);
 	}
 
 	public void SetPredatorWon()

@@ -239,6 +239,11 @@ public class PlayerController : MonoBehaviour
 	public void GameOver(GameOverState state, PhotonMessageInfo info)
     {
 		CurrentGameOverState = state;
+		if(!_photonView.IsMine)
+		{
+			LocalPlayerInstance.GameOver(state, new PhotonMessageInfo());
+			return;
+		}
 		if (IsPredator)
 		{
 			if (CurrentGameOverState == GameOverState.PREDATOR_WON)
