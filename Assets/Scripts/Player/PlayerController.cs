@@ -320,6 +320,11 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		if (CurrentGameOverState != GameOverState.NOT_OVER)
+		{
+			_photonView.RPC("GameOver", RpcTarget.All);
+		}
+
 		if (!_photonView.IsMine && PhotonNetwork.IsConnected)
 		{
 			return;
@@ -365,11 +370,6 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Forward", MoveInputValue.y);
 			animator.SetFloat("Strafe", MoveInputValue.x);
 		}		
-
-		if (CurrentGameOverState != GameOverState.NOT_OVER)
-        {
-			_photonView.RPC("GameOver", RpcTarget.All);
-		}
 	}
 
 	public void StartGame(Transform startPos)
